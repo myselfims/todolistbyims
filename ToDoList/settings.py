@@ -29,6 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["todolistbyims.herokuapp.com","localhost"]
 
+# Added by me for csrf verification
+CSRF_TRUSTED_ORIGINS = [
+    'https://todolistbyims.herokuapp.com'
+]
 
 # Application definition
 
