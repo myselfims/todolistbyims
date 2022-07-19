@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Signup</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3176/3176366.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
@@ -23,7 +23,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       {% endif %}
-    <form action="/login/" method='post'> {%csrf_token%}
+    <form action="/signup/" method='post'> {%csrf_token%}
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Name</label>
+          <input name="name" type="text" class="form-control" id="name">
+        </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Email</label>
           <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
@@ -34,7 +38,7 @@
           <input name="password" type="password" class="form-control" id="password">
         </div>
         <div class="mb-3 form-check">
-          <label class="form-check-label" for="exampleCheck1">Don't have account <a style="text-decoration: none;" href="/signup/">please signup</a> </label>
+          <label class="form-check-label" for="exampleCheck1">Go to <a style="text-decoration: none;" href="/signup/">login</a> </label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

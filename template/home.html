@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> {% block title %}Home{% endblock title %}</title>
+    <title> {% block title %}Home - {{user.0.name}}{% endblock title %}</title>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3176/3176366.png">
     <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -233,14 +233,17 @@
     #addtaskdiv{
         display: none;
     }
+    main{
+        font-family: 'Edu NSW ACT Foundation', cursive;
+    }
         
     </style>
 </head>
 <body>
     
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav style="font-size: 1.3vw;" class="navbar d-flex align-items-center navbar-expand-lg navbar-dark bg-dark">
             
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="/home/">
                   <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="" width="30" height="24"> To-Do List
                 </a>
               
@@ -252,7 +255,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/home/">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
@@ -264,6 +267,10 @@
                     <button onclick="AddbtnClk()" type="button" class="btn btn-outline-primary">Create</button>
                   </li>
                 </ul>
+                <form action="/logout/" method="post"> {%csrf_token%}
+                    <span class="badge rounded-pill text-bg-light"><h5>{{user.0.name}}</h5></span>
+                <button class="btn btn-outline-danger mx-2" type="submit">Logout</button>
+                </form>
                 <form class="d-flex" role="search" action="/search/",method='get'>
                   <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
@@ -276,17 +283,20 @@
     <main style="background-color: rgb(212, 209, 209);">
         
         <div class="card">
+            {% block alert %}
             {% if msg|length != 0%}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div style="font-size: 1.5vw;" class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oops! </strong> {{msg}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% endif %}
+            {% endblock alert %}
             <div class="card-body">
                 <div id="addtaskdiv" class="form-floating mb-3">
                     <form name="form" action="/home/" method='post'> {% csrf_token %}
                     <label for="floatingInput">Email address</label>
-                    <input name="task" type="text" class="form-control" id="floatingInput" placeholder="Enter here">
+                    <input name="email" type="hidden" value="{{email}}" >
+                    <input name="task" type="text" class="form-control m-2" id="floatingInput" placeholder="Enter here">
                     <button onclick="CheckIfEmpty()"  class="btn btn-outline-success" type="submit">Add</button>
                     <button onclick="cancelbtnClk()" type="button" class="btn btn-outline-danger">Cancel</button>
                     </form>
