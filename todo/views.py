@@ -2,7 +2,6 @@ import email
 from glob import glob
 from unicodedata import name
 from django.shortcuts import redirect, render,HttpResponse
-from numpy import number
 from .models import Task,User
 # Create your views here.
 mail = ""
