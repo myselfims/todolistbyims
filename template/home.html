@@ -179,53 +179,33 @@
             opacity: 100%;
         }
     }
-    /*Responsive webdesign css 
+    /*Responsive webdesign css */
     @media screen and (max-width:480px) {
-        *{
-            font-size: 5vw;
+        #badge{
+            position: absolute;
+            left: -0px;
+            top: -20px;
+        }
+        #datebadge{
+            position: absolute;
+            top: -15px;
+            right: 90px;
+        }
+        #deletebtn{
+            border-radius: 20px;
+            padding: 1px 20px;
+            font-size: 13px;
+            background-color: red;
+            color: white;
+            position: absolute;
+            top: -15px;
+            right: 0;
+            
+            
         }
         
-        nav{
-            height: 5vh;
-            display: none;
-        }
-        .divformobile{
-            display: block;
-        }
         
-        .taskcontainer{
-            width: 90vw;
-            font-size: 5vw;
-            display: flex;
-            align-content: center;
-            flex-direction: column;
-        }
-        .delbtn{
-            font-size: 4vw;
-        }
-        
-        .task{
-            width: 80vw;
-        }
-        .indexdiv{
-            width: 5vw;
-        }
-        .addbtn{
-            font-size: 5vw;
-            left: 75vw;
-            padding: 1vh 5vw;
-        }
-        .addtaskdiv{
-            display: flex;
-            flex-direction: column;
-            width: 70vw;
-        }
-        .adddivbtns{
-            font-size: 5vw;
-            padding: 3vh 6vw;
-            text-align: center;
-        }
-    }*/
+    }
     .divformobile{
         display: none;
         
@@ -305,15 +285,15 @@
                 {% block resultdiv %}
                 {% for task in tasks%}
                 
-                    <ol class="list-group list-group-">
+                    <ol class="list-group list-group- my-4">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                           <div class="ms-2 me-auto">
-                            <h3><span class="badge bg-secondary">{{forloop.counter}}</span> <span class="fw-bold">{{task.task}}</span></h3>
+                            <h3><span id="badge" class="badge bg-secondary">{{forloop.counter}}</span> <span class="fw-bold">{{task.task}}</span></h3>
                             
                           </div>
-                          <span class="badge bg-primary rounded-pill">{{task.date}}</span>
+                          <span id="datebadge" class="badge bg-primary rounded-pill">{{task.date}}</span>
                           <form name="form" action="/home/" method='post'> {% csrf_token %}
-                            <button class="btn btn-outline-danger mx-1" name="rmtask" value="{{task.number}}" type="submit">delete</button>
+                            <button id="deletebtn" class="btn btn-outline-danger mx-1" name="rmtask" value="{{task.number}}" type="submit">delete</button>
                             </form>
                         </li>
                     </ol>
