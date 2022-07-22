@@ -39,7 +39,7 @@ def login(request):
         if len(usercheck) !=0 and len(userpasscheck) != 0:
             global mail
             mail = email
-            return render(request,'home.html',{'email':email})
+            return redirect('/home/')
         else:
             return render(request,'login.html',{'msg':'Entered wrong email or password!'})
     return render(request,'login.html')
