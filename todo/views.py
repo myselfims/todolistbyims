@@ -25,7 +25,7 @@ def signup(request):
         newuser.save()
         global mail
         mail = email
-        return redirect('/home/')
+        return redirect('/home/',{'email':email})
     return render(request,'signup.html')
 
 def login(request):
@@ -39,7 +39,7 @@ def login(request):
         if len(usercheck) !=0 and len(userpasscheck) != 0:
             global mail
             mail = email
-            return redirect('/home/')
+            return render(request,'home.html',{'email':email})
         else:
             return render(request,'login.html',{'msg':'Entered wrong email or password!'})
     return render(request,'login.html')

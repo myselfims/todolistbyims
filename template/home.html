@@ -288,16 +288,17 @@
             <div style="font-size: 1.5vw;" class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oops! </strong> {{msg}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <h1>{{email}}</h1>
               </div>
             {% endif %}
             {% endblock alert %}
             <div class="card-body">
                 <div id="addtaskdiv" class="form-floating mb-3">
                     <form name="form" action="/home/" method='post'> {% csrf_token %}
-                    <label for="floatingInput">Email address</label>
+                    <label for="floatingInput">Create Task</label>
                     <input name="email" type="hidden" value="{{email}}" >
                     <input name="task" type="text" class="form-control m-2" id="floatingInput" placeholder="Enter here">
-                    <button onclick="CheckIfEmpty()"  class="btn btn-outline-success" type="submit">Add</button>
+                    <button onclick="CheckIfEmpty()"  class="btn btn-outline-success" type="submit">Save</button>
                     <button onclick="cancelbtnClk()" type="button" class="btn btn-outline-danger">Cancel</button>
                     </form>
                   </div>
