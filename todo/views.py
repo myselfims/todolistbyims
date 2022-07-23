@@ -3,6 +3,7 @@ from glob import glob
 from unicodedata import name
 from django.shortcuts import redirect, render,HttpResponse
 from .models import Task,User
+from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 mail = ""
 
@@ -16,6 +17,7 @@ def logout(request):
         mail = ""
         return redirect('/')
 
+@csrf_protect
 def signup(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -28,6 +30,7 @@ def signup(request):
         return redirect('/home/',{'email':email})
     return render(request,'signup.html')
 
+@csrf_protect
 def login(request):
     global mail
     if request.method == "POST":
