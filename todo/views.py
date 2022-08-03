@@ -38,7 +38,7 @@ def signup(request):
         else:
             if auth_user is not None:
                 messages.error(request,"Username no available!")
-            if len(password) <7:
+            elif len(password) <7:
                 messages.error(request,'Password length should be greater than 8!')
             else:
                 user = User.objects.create_user(username=username,email=email,password=password)
