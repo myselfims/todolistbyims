@@ -45,7 +45,7 @@ def signup(request):
                     login(request,user) 
                 except Exception as e:
                     messages.error(request,"Username not available!")
-                    return redirect(request,'/signup')
+                    # return redirect(request,'/signup')
             # try:
             #     user = User.objects.create_user(username=username,email=email,password=password)
             #     user.save()
