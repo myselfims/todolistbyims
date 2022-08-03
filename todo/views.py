@@ -36,14 +36,16 @@ def signup(request):
         if len(users) > 0:
             messages.error(request,"User already exist please login!")
         else:
-            if auth_user is not None:
-                messages.error(request,"Username no available!")
-            elif len(password) <7:
+            if len(password) <7:
                 messages.error(request,'Password length should be greater than 8!')
             else:
-                user = User.objects.create_user(username=username,email=email,password=password)
-                user.save()
-                login(request,user) 
+                try:
+                    user = User.objects.create_user(username=username,email=email,password=password)
+                    user.save()
+                    login(request,user) 
+                except Exception as e:
+                    messages.error(request,"Username not available!")
+                    return redirect(request,'/signup')
             # try:
             #     user = User.objects.create_user(username=username,email=email,password=password)
             #     user.save()
