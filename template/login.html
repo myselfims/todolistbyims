@@ -25,9 +25,15 @@
       {% endif %}
     <form action="/login/" method='post'> {%csrf_token%}
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Email</label>
-          <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-          We'll never share your email with anyone else.
+          {% for message in messages %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oops! </strong> {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          <label for="exampleInputPassword1" class="form-label">Username</label>
+          <input type="name" name="username" class="form-control" id="username">
+          We'll never share your information with anyone else.
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>

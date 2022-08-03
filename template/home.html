@@ -248,7 +248,10 @@
                   </li>
                 </ul>
                 <form action="/logout/" method="post"> {%csrf_token%}
-                    <span class="badge rounded-pill text-bg-light"><h5>{{user.0.name}}</h5></span>
+                    {% if user.is_authenticated %}
+                    
+                    <span class="badge rounded-pill text-bg-light"><h5>{{request.user}}</h5></span>
+                    {% endif %}
                 <button class="btn btn-outline-danger mx-2" type="submit">Logout</button>
                 </form>
                 <form class="d-flex" role="search" action="/search/",method='get'>
@@ -276,7 +279,7 @@
                 <div id="addtaskdiv" class="form-floating mb-3">
                     <form name="form" action="/home/" method='post'> {% csrf_token %}
                     <label for="floatingInput">Create Task</label>
-                    <input name="email" type="hidden" value="{{email}}" >
+                    <input name="email" type="hidden" value="{{request.user}}" >
                     <input name="task" type="text" class="form-control m-2" id="floatingInput" placeholder="Enter here">
                     <button onclick="CheckIfEmpty()"  class="btn btn-outline-success" type="submit">Save</button>
                     <button onclick="cancelbtnClk()" type="button" class="btn btn-outline-danger">Cancel</button>
