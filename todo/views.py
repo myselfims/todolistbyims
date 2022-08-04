@@ -1,3 +1,4 @@
+from django.urls import reverse
 import email
 from glob import glob
 from unicodedata import name
@@ -86,29 +87,33 @@ def loginn(request):
 
 def home(request):
     if request.method =="POST":
-        user = request.POST.get('email')
-        task = request.POST.get('task')
+        # user = request.POST.get('email')
+        # newtask = request.POST.get('task')
         removetask = request.POST.get('rmtask')
         print(removetask)
-        rmtask = Task.objects.filter(number=removetask)
-        rmtask.delete()
-        print('hello')
-        print(user)
-        if user is not None and task is not None:
-            createtast = Task(email=user,task=task)
+        if removetask != '':
+            rmtask = Task.objects.filter(number=removetask)
+            # print(rmtask)
+            if len(rmtask) > 0:
+                rmtask.delete()
+        if removetask is None:
+            newtask = request.POST.get('task')
+            createtast = Task(username=request.user,task=newtask)
             createtast.save()
-        else:
-            pass
+            # return redirect(request,'/savetask/')
     if request.user.is_authenticated:
-        task = Task.objects.filter(email=request.user.email)
-        if len(task) != 0:
+        task = Task.objects.filter(username=request.user)
+        # print(task)
+        if len(task) > 0:
             return render(request,'home.html',{'tasks':task})
         else:
             return render(request,'home.html',{'msg':"No tasks found please create some task!"})
     else:
         # return print('error')
+        print()
         return redirect("/")
-    
+       
+
     
     
     
@@ -125,7 +130,7 @@ def match(alltaks,query):
 def search(request):
     if request.method == "GET":
         query = request.GET.get('query')
-        alltaks = Task.objects.filter(email=request.user)
+        alltaks = Task.objects.filter(username=request.user)
         sorted = [task for task in alltaks if match(task,query.lower())]
         return render(request,'search.html',{'tasks':sorted})
         

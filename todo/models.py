@@ -7,7 +7,7 @@ from django.db import models
 # Create your models here.
 class Task(models.Model):
     number = models.AutoField(primary_key=True)
-    email = models.CharField(max_length=500,default="")
+    username = models.CharField(max_length=500,default="")
     task = models.CharField(max_length=5000,default="")
     date = models.DateField(auto_now_add=True)
 

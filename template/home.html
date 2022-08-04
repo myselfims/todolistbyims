@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <style>
         *{ margin: 0; padding: 0;}
 
@@ -226,7 +229,7 @@
                 <a class="navbar-brand" href="/home/">
                   <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="" width="30" height="24"> To-Do List
                 </a>
-              
+            
             <div class="container-fluid">
             
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -236,15 +239,15 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/home/">Home</a>
-                  </li>
-                  <li class="nav-item">
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
-                  </li>
-                  <li class="nav-item">
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
-                  </li>
-                  <li class="nav-item">
-                    <button onclick="AddbtnClk()" type="button" class="btn btn-outline-primary">Create</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="AddbtnClk()" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Create</button>
                   </li>
                 </ul>
                 <form action="/logout/" method="post"> {%csrf_token%}
@@ -277,13 +280,33 @@
             {% endblock alert %}
             <div class="card-body">
                 <div id="addtaskdiv" class="form-floating mb-3">
-                    <form name="form" action="/home/" method='post'> {% csrf_token %}
-                    <label for="floatingInput">Create Task</label>
-                    <input name="email" type="hidden" value="{{request.user}}" >
-                    <input name="task" type="text" class="form-control m-2" id="floatingInput" placeholder="Enter here">
-                    <button onclick="CheckIfEmpty()"  class="btn btn-outline-success" type="submit">Save</button>
-                    <button onclick="cancelbtnClk()" type="button" class="btn btn-outline-danger">Cancel</button>
-                    </form>
+                    <!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Create new task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" action="/home/" method='post'> {% csrf_token %}
+                <label for="floatingInput">Create Task</label>
+                <input name="email" type="hidden" value="{{request.user}}" >
+                <input name="task" type="text" class="form-control m-2" id="floatingInput" placeholder="Enter here" required>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline-success" type="submit">Save</button>
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal" aria-label="Close">Close</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>  
+                    
                   </div>
                 {% block resultdiv %}
                 {% for task in tasks%}
@@ -339,7 +362,9 @@ function Check(){
         document.getElementById('searchbtn').disabled = false
     }
 }
-
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
 </script>
 {% endblock js %}
 </html>
