@@ -3,7 +3,7 @@ import email
 from glob import glob
 from unicodedata import name
 from django.shortcuts import redirect, render,HttpResponse
-from urllib3 import Retry
+
 from .models import Task
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
@@ -45,7 +45,7 @@ def signup(request):
                     user.save()
                     login(request,user) 
                 except Exception as e:
-                    messages.error(request,"Username not available!")
+                    messages.error(request,"Username not available. Try unique username!")
                     # return redirect(request,'/signup')
             # try:
             #     user = User.objects.create_user(username=username,email=email,password=password)
