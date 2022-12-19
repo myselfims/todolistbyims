@@ -183,7 +183,7 @@
         }
     }
     /*Responsive webdesign css */
-    @media screen and (max-width:480px) {
+    @media screen and (max-width:600px) {
         #badge{
             position: absolute;
             left: -0px;
@@ -203,14 +203,28 @@
             position: absolute;
             top: -15px;
             right: 0;
-            
-            
         }
-        
+        .mobilenav{
+            display: flex;
+ 
+            background-color: black;
+            width: 100vw;
+        }
+        .navbar{
+            display: none;
+            visibility: hidden;
+            width: 0vw;
+            height: 0vh;
+        }
+        .mobileformdiv{
+            display: inline;
+            width: 100vw;
+        }
         
     }
     .divformobile{
         display: none;
+       
         
     }
     #addtaskdiv{
@@ -264,6 +278,24 @@
               </div>
             </div>
           </nav>
+          <div class="mobilenav">
+            <div id="nav">
+                <a class="navbar-brand" href="/home/">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="" width="30" height="24"> To-Do List
+                  </a>
+                  <button onclick="AddbtnClk()" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Create</button>
+                  <form action="/logout/" method="post"> {%csrf_token%}
+                      {% if user.is_authenticated %}
+                      <span class="badge rounded-pill text-bg-light"><h5>{{request.user}}</h5></span>
+                      {% endif %}
+                      <div class="mobileformdiv">
+                <button class="btn btn-outline-danger mx-2" type="submit">Logout</button>
+                </form>
+                </div>
+            </div>
+            </div>
+
+          </div>
     
     {% block main %}
     <main style="background-color: rgb(212, 209, 209);">
