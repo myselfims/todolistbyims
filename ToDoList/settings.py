@@ -29,11 +29,11 @@ SECRET_KEY = "django-insecure-i5czf54ecyfn+8_4p46wd!9_2p6*_qby8!bi#cl-ft(y!1=^6-
 DEBUG = True
 
 # ALLOWED_HOSTS = ["todolistbyims.herokuapp.com","localhost"]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Added by me for csrf verification
 CSRF_TRUSTED_ORIGINS = [
-    'https://todolistbyims.herokuapp.com'
+    'https://todolistbyims.onrender.com/'
 ]
 
 # Application definition
